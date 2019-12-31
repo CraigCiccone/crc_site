@@ -1,0 +1,14 @@
+{% extends "base/base.html" %}
+
+{% block page_body %}
+
+{{ macros.heading("fas fa-exclamation-triangle", "err-heading", err_req) }}
+
+{% if err_opt %}
+<p style="font-size:18px;">{{ err_opt }}</p>
+{% endif %}
+
+<p><a class="text-danger" style="font-size:18px;"
+      href="{{ url_for('base.index') }}">Home</a></p>
+
+{% endblock %}

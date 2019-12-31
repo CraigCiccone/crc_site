@@ -1,0 +1,10 @@
+Hello {{ email }},
+
+Thank you for registering! Please login here:
+
+{{ site_url }}
+
+Please be sure to check in regularly to see the latest updates!
+
+Thanks,
+CRC

@@ -7,43 +7,208 @@
 
     <!-- Meta -->
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <!-- Bootstrap 4 CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <!-- Favicon -->
+    <link rel="shortcut icon"
+          href="https://cdn.jsdelivr.net/gh/CraigCiccone/crc_site_static@master/logo.ico">
+
+    <!-- Font Awesome CSS -->
+    <link rel="stylesheet"
+          href="https://use.fontawesome.com/releases/v5.12.0/css/all.css">
+
+    <!-- Bootstrap 4 customized CSS -->
+    <link rel="stylesheet"
+          href="https://cdn.jsdelivr.net/gh/CraigCiccone/crc_site_static@master/bootstrap.min.css">
+
+    <!-- HoldOn CSS -->
+    <link rel="stylesheet" type="text/css"
+          href="https://cdn.jsdelivr.net/gh/CraigCiccone/crc_site_static@master/HoldOn.min.css">
+
+    <!-- Datatables CSS -->
+    <link rel="stylesheet"
+          href="https://cdn.datatables.net/1.10.20/css/dataTables.bootstrap4.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" type="text/css"
+          href="https://cdn.jsdelivr.net/gh/CraigCiccone/crc_site_static@master/custom.css">
+
+    <!-- JQuery -->
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"
+            integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+            crossorigin="anonymous"></script>
 
 </head>
+
+<!-- Padding for fixed navbar -->
+<body style="padding-top: 80px; padding-bottom: 320px">
+
+<!-- Import Jinja2 macros -->
+{% import "base/macros.html" as macros with context %}
+
+<!-- navbar -->
+<nav class="navbar navbar-expand-lg fixed-top navbar-dark fixed-top bg-primary">
+    <div class="container">
+        <a class="navbar-brand" style="font-size: 22px"
+           href="{{ url_for('base.index') }}">CRC</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse"
+                data-target="#navbarNav" aria-controls="navbarNav"
+                aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item" data-toggle="collapse"
+                    data-target=".navbar-collapse.show">
+                    <a class="nav-link"
+                       href="{{ url_for('base.index') }}#about"><i
+                            class="fas fa-user"></i> About</a>
+                </li>
+                <li class="nav-item" data-toggle="collapse"
+                    data-target=".navbar-collapse.show">
+                    <a class="nav-link"
+                       href="{{ url_for('base.index') }}#experience"><i
+                            class="fas fa-briefcase"></i> Experience</a>
+                </li>
+                <li class="nav-item" data-toggle="collapse"
+                    data-target=".navbar-collapse.show">
+                    <a class="nav-link"
+                       href="{{ url_for('base.index') }}#education"><i
+                            class="fas fa-university"></i> Education</a>
+                </li>
+                <li class="nav-item" data-toggle="collapse"
+                    data-target=".navbar-collapse.show">
+                    <a class="nav-link"
+                       href="{{ url_for('base.index') }}#skills"><i
+                            class="fas fa-terminal"></i> Skills</a>
+                </li>
+                <li class="nav-item" data-toggle="collapse"
+                    data-target=".navbar-collapse.show">
+                    <a class="nav-link"
+                       href="{{ url_for('base.index') }}#interests"><i
+                            class="fas fa-gamepad"></i> Interests</a>
+                </li>
+                <li class="nav-item" data-toggle="collapse"
+                    data-target=".navbar-collapse.show">
+                    <a class="nav-link"
+                       href="{{ url_for('base.index') }}#contact"><i
+                            class="fas fa-envelope"></i> Contact</a>
+                </li>
+            </ul>
+            <ul class="navbar-nav">
+                <li class="nav-item dropdown">
+                    {% if current_user.is_authenticated %}
+                    <a class="nav-link dropdown-toggle" style="font-size: 18px"
+                       data-toggle="dropdown" href="#" role="button"
+                       aria-haspopup="true" aria-expanded="false"><i
+                            class="fas fa-user-cog"></i></a>
+                    {% else %}
+                    <a class="nav-link dropdown-toggle" style="font-size: 18px"
+                       data-toggle="dropdown" href="#" role="button"
+                       aria-haspopup="true" aria-expanded="false"><i
+                            class="far fa-user"></i></a>
+                    {% endif %}
+                    <div class="dropdown-menu">
+                        {% if current_user.is_authenticated %}
+                        <a class="dropdown-item"
+                           href="{{ url_for('user.logout') }}">Logout</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item"
+                           href="{{ url_for('user.delete') }}">Delete
+                            Account</a>
+                        {% else %}
+                        <a class="dropdown-item"
+                           href="{{ url_for('user.login') }}">Login</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item"
+                           href="{{ url_for('user.recover') }}">Recover
+                            Account</a>
+                        <a class="dropdown-item"
+                           href="{{ url_for('user.register') }}">Register
+                            Account</a>
+                        {% endif %}
+                    </div>
+                </li>
+            </ul>
+        </div>
+        <!-- /navbar-collapse -->
+    </div>
+    <!-- /container -->
+</nav>
+<!-- /navbar -->
 
 <!-- Body Container with added padding at the bottom of the page -->
 <div class="container" style="padding-bottom: 20px">
 
-    <!-- Flash messages to the user across all pages -->
+    <!-- Flash form submission error messages to the user -->
+    {% if form %}
+    {{ macros.render_form_errors(form) }}
+    {% endif %}
+
+    <!-- Flash general messages to the user from the backend -->
     {% with messages = get_flashed_messages(with_categories=true) %}
-        {% if messages %}
-            {% for category, message in messages %}
-                <div class="alert alert-{{ category }}" role="alert">
-                    {{ message }}
-                    <button type="button" class="close" data-dismiss="alert"
-                            aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-            {% endfor %}
-        {% endif %}
+    {% if messages %}
+    {% for category, message in messages %}
+    <div class="alert alert-{{ category }} alert-dismissible text-success show"
+         role="alert">
+        {{ message }}
+        <button type="button" class="close" data-dismiss="alert"
+                aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    {% endfor %}
+    {% endif %}
     {% endwith %}
+    <!-- /messages -->
 
     <!-- Other HTML templates populate the rest of the body here -->
     {% block page_body %}
     {% endblock %}
+    <!-- /page_body -->
 
 </div>
-<!-- /Body Container -->
+<!-- /container -->
 
-<!-- Bootstrap Javascript dependencies -->
-<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+<footer class="footer">
+    <div class="container text-center">
+        <span>CRC Site -- Version 1.0</span>
+    </div>
+</footer>
+
+<!-- Bootstrap javascript dependencies -->
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+        crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+        integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+        crossorigin="anonymous"></script>
+
+<!-- Datatables javascript dependencies -->
+<script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.10.20/js/dataTables.bootstrap4.min.js"></script>
+
+<!-- HoldOn.js dependency -->
+<script src="https://cdn.jsdelivr.net/gh/CraigCiccone/crc_site_static@master/HoldOn.min.js"></script>
+
+<!-- Loading overlay via HoldOn.js -->
+<script type="text/javascript">
+    function Loading() {
+        HoldOn.open({
+            theme: "sk-bounce"
+        });
+    }
+</script>
+
+<!-- reCAPTCHA call back -->
+<script>
+    function onSubmitCallback(token) {
+        Loading();
+        console.log("CALL BACK HAPPENING");
+        document.getElementById("recaptcha-form").submit();
+    }
+</script>
 
 </body>
 

@@ -1,0 +1,14 @@
+New message from {{ first }} {{ last }}. Here is their message:
+
+{% if category %}
+Message Category: {{ category }}
+{% endif %}
+
+{{ message }}
+
+{% if email %}
+They can be reached at {{ email }}.
+{% endif %}
+
+Thanks,
+CRC
