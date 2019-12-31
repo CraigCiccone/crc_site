@@ -13,8 +13,10 @@ Example Usage::
 from os import environ
 
 from app.create import create_app
+from app.extensions import make_celery
 
 app = create_app(config=environ.get("FLASK_APP_ENV", None))
+celery = make_celery(app)
 
 if __name__ == "__main__":
     app.run()

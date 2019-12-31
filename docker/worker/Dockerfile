@@ -16,6 +16,8 @@ RUN set -e; \
     libffi-dev \
     linux-headers \
     libressl-dev \
+    openssl \
+    openssl-dev \
     ; \
     pip install -r requirements.txt; \
     apk del .build-deps;
