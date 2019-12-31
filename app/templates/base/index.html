@@ -2,6 +2,211 @@
 
 {% block page_body %}
 
-<h1>Coming Soon!</h1>
+{{ macros.heading("fas fa-user", "about", "About") }}
+
+<div style="text-align: center;" class="jumbotron">
+    <img src="https://cdn.jsdelivr.net/gh/CraigCiccone/crc_site_static@master/logo.png"
+         style=" text-align: center" height="160px" width="120px">
+    <h1 class="display-4">Hello, world!</h1>
+    <p class="lead">I am a software engineer specializing in python
+        development. I have over 8 years of experience in software development,
+        and I have a strong background in systems design and engineering as
+        well.</p>
+    <hr class="my-4">
+    <p>Please check out my github to see the projects I've open sourced and any
+        projects I am currently working on.</p>
+    <a href="https://github.com/CraigCiccone" target="_blank">
+        <button class="btn btn-danger btn-lg" type="reset">
+            <i class="fab fa-github"></i> Github
+        </button>
+    </a>
+</div>
+
+
+{{ macros.heading("fas fa-briefcase", "experience", "Experience") }}
+
+<div class="card bg-secondary">
+    <h4 class="card-header">
+        Pharmaceutical
+    </h4>
+    <div class="card-body">
+        <h5 class="card-title">Software Engineer</h5>
+        <p class="card-text text-success">I am currently developing intelligent
+            solution assistants for the medical industry.</p>
+    </div>
+</div>
+<br/>
+<div class="card bg-secondary">
+    <h4 class="card-header">
+        Telecommunications
+    </h4>
+    <div class="card-body">
+        <h5 class="card-title">Software Engineer</h5>
+        <p class="card-text text-success">Developed numerous programs and
+            platforms including micro service architectures and custom
+            analytics solutions.</p>
+    </div>
+</div>
+
+
+{{ macros.heading("fas fa-university", "education", "Education") }}
+
+<div class="card bg-secondary">
+    <h4 class="card-header">
+        Bachelor's Degree
+    </h4>
+    <div class="card-body">
+        <h5 class="card-title">NJIT</h5>
+        <p class="card-text text-success">I hold a Bachelor's of Science in
+            Computer Engineering graduating Summa Cum Laude.</p>
+    </div>
+</div>
+<br/>
+<div class="card bg-secondary">
+    <h4 class="card-header">
+        Associates Degree
+    </h4>
+    <div class="card-body">
+        <h5 class="card-title">County College of Morris</h5>
+        <p class="card-text text-success">I hold an Associate's of Science
+            degree in Engineering Science graduating Magna Cum Laude.</p>
+    </div>
+</div>
+
+
+{{ macros.heading("fas fa-terminal", "skills", "Skills") }}
+
+<h5>Python</h5>
+<div class="progress">
+    <div class="progress-bar progress-bar-striped bg-success progress-bar-animated"
+         role="progressbar" aria-valuenow="85" aria-valuemin="0"
+         aria-valuemax="100" style="width: 85%"></div>
+</div>
+<br/>
+<h5>Web Services</h5>
+<div class="progress">
+    <div class="progress-bar progress-bar-striped bg-success progress-bar-animated"
+         role="progressbar" aria-valuenow="80" aria-valuemin="0"
+         aria-valuemax="100" style="width: 80%"></div>
+</div>
+<br/>
+<h5>Docker</h5>
+<div class="progress">
+    <div class="progress-bar progress-bar-striped bg-success progress-bar-animated"
+         role="progressbar" aria-valuenow="75" aria-valuemin="0"
+         aria-valuemax="100" style="width: 75%"></div>
+</div>
+<br/>
+<h5>Automation</h5>
+<div class="progress">
+    <div class="progress-bar progress-bar-striped bg-success progress-bar-animated"
+         role="progressbar" aria-valuenow="80" aria-valuemin="0"
+         aria-valuemax="100" style="width: 80%"></div>
+</div>
+<br/>
+<h5>Java</h5>
+<div class="progress">
+    <div class="progress-bar progress-bar-striped bg-success progress-bar-animated"
+         role="progressbar" aria-valuenow="65" aria-valuemin="0"
+         aria-valuemax="100" style="width: 65%"></div>
+</div>
+<br/>
+<h5>Linux / Shell</h5>
+<div class="progress">
+    <div class="progress-bar progress-bar-striped bg-success progress-bar-animated"
+         role="progressbar" aria-valuenow="70" aria-valuemin="0"
+         aria-valuemax="100" style="width: 70%"></div>
+</div>
+
+
+{{ macros.heading("fas fa-gamepad", "interests", "Interests") }}
+
+<div class="list-group">
+    <a href="#Interests" class="list-group-item disabled active"
+       aria-disabled="true">
+        <div class="d-flex w-100 justify-content-between">
+            <h5 class="mb-1">Python Development</h5>
+        </div>
+        <p class="mb-1 text-success">Python development is more than a career
+            for me. It is one of my top hobbies. I enjoy using Python for web
+            development, general automation, and even general application
+            development.</p>
+    </a>
+    <a href="#Interests" class="list-group-item disabled active"
+       aria-disabled="true">
+        <div class="d-flex w-100 justify-content-between">
+            <h5 class="mb-1">Game Development</h5>
+        </div>
+        <p class="mb-1 text-success">I am actively teaching myself game
+            development. It is a challenging endeavor as it touches much more
+            than just programming.</p>
+    </a>
+    <a href="#Interests" class="list-group-item disabled active"
+       aria-disabled="true">
+        <div class="d-flex w-100 justify-content-between">
+            <h5 class="mb-1">Sports</h5>
+        </div>
+        <p class="mb-1 text-success">I'm an avid MMA fan and enjoy playing
+            basketball and baseball if I can find the time. I need to start my
+            day with some form of exercise or I feel off.</p>
+    </a>
+</div>
+
+
+{{ macros.heading("fas fa-envelope", "contact", "Contact") }}
+
+<form id="recaptcha-form" action="" method="POST">
+    {{ form.hidden_tag() }}
+    <div class="row">
+        <div class="col-md-6">
+            <div class="form-group">
+                {{ form.first.label }}
+                {{ form.first(class_="form-control") }}
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                {{ form.last.label }}
+                {{ form.last(class_="form-control") }}
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="form-group">
+                {{ form.email.label }}
+                {{ form.email(class_="form-control") }}
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                {{ form.category.label }}
+                {{ form.category(class_="form-control") }}
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="form-group">
+                {{ form.message.label }}
+                {{ form.message(class_="form-control noResize", rows=4) }}
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="form-group">
+                {{ form.submit_recap(class_="btn btn-lg btn-danger") }}
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="form-group">
+                {{ form.recaptcha }}
+            </div>
+        </div>
+    </div>
+</form>
 
 {% endblock %}

@@ -1,0 +1,86 @@
+<!-- Render a section heading with added spacing and a dividing line -->
+{% macro heading(icon_class, html_id, text) -%}
+
+<h2 id="{{ html_id }}" style="padding-top: 80px"><i
+        class="{{ icon_class }}"></i>
+    {{ text }}</h2>
+<div class="progress" style="height: 3px;">
+    <div class="progress-bar bg-danger" role="progressbar"
+         style="width: 100%" aria-valuenow="100" aria-valuemin="0"
+         aria-valuemax="100"></div>
+</div>
+<div style="padding-top: 30px;"></div>
+
+{%- endmacro %}
+
+<!-- Render Bootstrap fields in a vertical form -->
+{% macro render_field(field) -%}
+
+{% set with_label = kwargs.pop('with_label', False) %}
+{% set placeholder = kwargs.pop('placeholder', field.label.text) %}
+{% set class_ = kwargs.pop('class_', '') %}
+
+<div class="form-group">
+
+    {% if field.type == 'BooleanField' %}
+    <div class="col-xs-2 text-xs-center" data-toggle="buttons">
+        <label class="btn btn-success btn-block text-xs-center">
+            {{ field(class_=class_, **kwargs) }}
+            {{ field.label.text|safe }}
+        </label>
+    </div>
+    {% else %}
+
+    {% if field.type in ('TextField', 'TextAreaField', 'PasswordField',
+    'IntegerField', 'StringField') %}
+
+    {% set class_ = class_ + ' input-xlarge form-control' %}
+
+    {% endif %}
+
+    {% if field.type == 'SelectField' %}
+
+    {{ field(class_="form-control", **kwargs) }}
+
+    {% elif field.type == 'SubmitField' %}
+
+    {{ field(class_="btn btn-lg btn-danger btn-block", **kwargs) }}
+
+    {% else %}
+
+    {% if with_label %}
+    {{ field(class_=class_, **kwargs) }}
+    {% else %}
+    {{ field(class_=class_, placeholder=placeholder, **kwargs) }}
+    {% endif %}
+
+    {% endif %}
+
+    {% endif %}
+
+</div>
+
+{%- endmacro %}
+
+<!-- Render all form errors -->
+{% macro render_form_errors(form) -%}
+
+{% if form.errors %}
+{% for field_name, field_errors in form.errors|dictsort if field_errors %}
+{% for error in field_errors %}
+
+<div style="margin-bottom: 4px; line-height:14px;"
+     class="alert alert-danger alert-dismissible text-success show"
+     role="alert">
+    <span class="align-middle">{{ form[field_name].label }}: {{ error }}</span>
+    <button type="button" class="close" data-dismiss="alert"
+            aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+
+{% endfor %}
+{% endfor %}
+{% endif %}
+
+{%- endmacro %}
